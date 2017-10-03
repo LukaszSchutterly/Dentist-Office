@@ -1,0 +1,15 @@
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        Usuwanie pacjęta
+    </div>
+    <div class="panel-body text-center">
+        <p>Czy napewno chcesz usunąć pacjeta<br/>
+            <span ng-bind='spCtrl.patient.firstName'></span>
+            <span ng-bind='spCtrl.patient.lastName'></span>
+        </p>
+        <button class='btn btn-success' ng-click='spCtrl.removePatient(spCtrl.patient,spCtrl.patients)'>
+            Tak
+        </button>
+        <button class='btn btn-danger' ng-click="spCtrl.popover.changePopoverState()">Nie</button>
+    </div>
+</div>

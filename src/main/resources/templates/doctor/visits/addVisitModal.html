@@ -1,0 +1,55 @@
+<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">Dodaj wizyte</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <form name="details" ng-submit="details.$valid && miCtrl.ok()">
+        <div class="form-group">
+            <label>Imię*: </label>
+            <input title="Imię" name="firstName" maxlength="25" class="form-control"
+                   ng-model="miCtrl.visit.patient.firstName" ng-minlength="3" required>
+            <div ng-if="details.firstName.$touched && details.firstName.$invalid" class="alert alert-danger">
+                Pole musi zawierac conajmniej 3 znaki.
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Nazwisko*:</label>
+            <input title="Nazwisko" name="lastName" maxlength="30" class="form-control"
+                   ng-model="miCtrl.visit.patient.lastName" ng-minlength="3" required>
+            <div ng-if="details.phoneNumber.$touched && details.lastName.$invalid" class="alert alert-danger">
+                Pole musi zawierac conajmniej 3 znaki.
+            </div>
+        </div>
+        <div class="form-group">
+            <label> Number telefonu:</label>
+            <input title="Numer telefonu" name="phoneNumber" maxlength="15" class="form-control"
+                   ng-model="miCtrl.visit.patient.phoneNumber">
+            <div ng-if="details.phoneNumber.$touched && details.phoneNumber.$invalid" class="alert alert-danger">
+                Nieprawidłowy numer telefonu.
+            </div>
+        </div>
+        <div class="form-group">
+            <label> PESEL:</label>
+            <input title="pesel" name="pesel" class="form-control" maxlength="11" ng-minlength="11" ng-maxlength="11"
+                   ng-model="miCtrl.visit.patient.pesel">
+            <div ng-if="details.pesel.$touched && details.pesel.$invalid"
+                 class="alert alert-danger">
+                Numer pesel powinien miec długość 11
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="dentalServices">Wybierz Usługe</label>
+            <select class="form-control" id="dentalServices" ng-model="miCtrl.visit.dentalService"
+                    ng-options="dentalService for dentalService in miCtrl.dentalServices">
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Dodatkowe informacje:</label>
+            <textarea title="Opis" class="form-control" rows="5" maxlength="400"
+                      ng-model="miCtrl.visit.description"></textarea>
+        </div>
+        <div class="text-center">
+            <input type="submit" id="submit" class="btn btn-success" value="Dodaj"/>
+            <button class="btn btn-danger" type="button" ng-click="miCtrl.cancel()">Anuluj</button>
+        </div>
+    </form>
+</div>

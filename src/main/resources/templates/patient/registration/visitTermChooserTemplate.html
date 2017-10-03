@@ -1,0 +1,44 @@
+<div class="col-md-10">
+    <div class="panel panel-info text-center">
+        <div class="panel-heading">
+            <h4>Wybór terminu wizyty</h4>
+        </div>
+        <div class="panel-body ">
+            <div class="row">
+                <div class="col-md-2 ">
+                    <button class="btn btn-primary" ng-disabled="vtcCtrl.viewDate <= vtcCtrl.viewStartDate"
+                            ng-click="vtcCtrl.changeViewDate(-1)">
+                        <span class="fa fa-arrow-left"></span> Poprzedni
+                    </button>
+                </div>
+                <div class="col-md-8">
+                    <h4 ng-bind="vtcCtrl.viewDateString"></h4>
+                    <h5 ng-bind="vtcCtrl.error" ng-if="vtcCtrl.error"></h5>
+                    <h5 ng-if="!vtcCtrl.error">Wybierz odpowiadający Ci termin wizyty</h5>
+                </div>
+                <div class="col-md-2">
+                    <button class="btn btn-primary" ng-click="vtcCtrl.changeViewDate(1)">
+                        Następny <span class="fa fa-arrow-right"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <label class="btn btn-default" ng-repeat="availableVisitTime in vtcCtrl.availableVisitTimes"
+                       ng-class="{'selected':vtcCtrl.visitTime==availableVisitTime}">
+                    <input type="radio" value="{{availableVisitTime}}" ng-model="vtcCtrl.visitTime"
+                           name="availableVisitTimes">
+                    <span ng-bind="availableVisitTime"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-2">
+    <button ng-if="vtcCtrl.registrationService.visit.visitTime" class="btn btn-success registrationStageBtn" style="top:100px"
+            ng-click="vtcCtrl.registrationService.nextStage()">
+        Dalej <span class="fa fa-arrow-right"></span>
+    </button>
+</div>
+
+
+

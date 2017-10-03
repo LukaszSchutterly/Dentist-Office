@@ -1,0 +1,48 @@
+<table class="table table-hover table-bordered table-condensed">
+    <tr>
+        <th class="col-md-2">Czas wizyty</th>
+        <th class="col-md-5">Pacjent</th>
+        <th class="col-md-3">Usługa</th>
+        <th class="col-md-2"><i class="fa fa-cog fa-lg fa-2x"></i></th>
+    </tr>
+    <tr ng-repeat="vt in tCtrl.visitTimes" ng-click="tCtrl.visitsViewService.setVisitForView(tCtrl.visitMap[vt])"
+        ng-class="tCtrl.getRowClass(vt)">
+        <td ng-bind="vt"></td>
+        <td>
+            <span ng-bind="tCtrl.visitMap[vt].patient.firstName"></span>
+            <span ng-bind="tCtrl.visitMap[vt].patient.lastName"></span>
+        </td>
+        <td>
+            <span ng-bind="tCtrl.visitMap[vt].dentalService"></span>
+        </td>
+        <td ng-controller="tableIconsController as tiCtrl" style="padding: 0">
+           <span ng-if="tCtrl.notConfirmedVisitTimes.indexOf(vt)===-1">
+                   <div class="col-md-3 table-icons-container">
+                       <i title="Zablokuj termin" class="fa fa-lock fa-2x table-icon"
+                          ng-if="tCtrl.availableVisitTimes && tCtrl.visitMap[vt]===undefined
+                          && tCtrl.availableVisitTimes.indexOf(vt)>-1"
+                          ng-click="tiCtrl.deleteAvailableVisitTime(vt)">
+                       </i>
+                   </div>
+                   <div class="col-md-3 table-icons-container">
+                       <i title="Odblokuj termin" class="fa fa-unlock fa-2x table-icon"
+                          ng-if="tCtrl.availableVisitTimes && tCtrl.visitMap[vt]===undefined
+                          && tCtrl.availableVisitTimes.indexOf(vt)===-1"
+                          ng-click="tiCtrl.addAvailableVisitTime(vt)">
+                       </i>
+                   </div>
+                    <div class="col-md-3 table-icons-container">
+                       <i title="Usuń wizyte" class="fa fa-minus fa-2x table-icon"
+                          ng-if="tCtrl.visitMap[vt].accepted" ng-click="tiCtrl.deleteVisit(tCtrl.visitMap[vt])">
+                       </i>
+                   </div>
+                   <div class="col-md-3 table-icons-container">
+                       <i title="Dodaj pacjenta" class="fa fa-plus fa-2x table-icon"
+                          ng-if="!tCtrl.visitsViewService.isVisitTimeTaken(vt)" ng-click="tiCtrl.addVisit(vt)">
+                       </i>
+                   </div>
+
+           </span>
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,59 @@
+.fa-angle-left {
+    left: 80px;
+}
+
+.fa-angle-right {
+    right: 80px;
+}
+
+.fa-angle-left, .fa-angle-right {
+    position: absolute;
+    top: -30px;
+}
+
+.fa-angle-left:hover, .fa-angle-right:hover {
+    color: #98e698;
+}
+
+header {
+    margin-bottom: 30px;
+}
+
+th {
+    text-align: center !important;
+}
+
+td {
+    text-align: center;
+}
+
+.fa-plus {
+    color: green;
+}
+
+.fa-minus {
+    color: red;
+}
+
+
+.panel-body{
+    word-wrap: break-word;
+}
+
+.selected{
+    background-color:#98e698 !important;
+}
+
+.selected:hover{
+    background-color:#98e698!important;
+}
+
+.click-able-heading{
+    padding: 5px !important;
+    border-bottom:0 !important;
+    text-align: center;
+}
+
+.click-able-heading:hover{
+    background-color:#98e698 !important;
+}

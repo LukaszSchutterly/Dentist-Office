@@ -1,0 +1,41 @@
+<div class="container-fluid" ng-controller="visitsController as vCtrl">
+    <div class="col-md-3">
+        <div class="text-center">
+            <h1>Zgłoszenia:</h1>
+        </div>
+        <visit-accordions></visit-accordions>
+    </div>
+    <div class="col-md-6 text-center">
+        <div class="row">
+            <i class="fa fa-angle-left fa-5x" ng-click="vCtrl.previous()"></i>
+            <span class="h3" ng-bind="vCtrl.polishViewDateString"></span>
+            <i class="fa fa-angle-right fa-5x" ng-click="vCtrl.next()"></i>
+        </div>
+        <div class="row ">
+            <button class="btn btn-danger" style="width: 200px;margin:10px" ng-click="vCtrl.blockDay()">
+                <i class="fa fa-lock fa-lg"></i> Zablokuj dzień
+            </button>
+        </div>
+        <visits-table></visits-table>
+    </div>
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="well well-sm" uib-datepicker datepicker-options="{showWeeks: false}"
+                     ng-click="vCtrl.visitsViewService.updateView(vCtrl.visitsViewService.viewDate)"
+                     ng-model="vCtrl.visitsViewService.viewDate">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <a href="#/patients">
+                    <button class="btn btn-primary" style="width: 100%" ng-click="vCtrl.patientsViewService.getAllPatients()">
+                        <i class="fa fa-user-circle-o"></i> Pacjenci
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <selected-visit></selected-visit>
+        </div>
+    </div>
+</div>

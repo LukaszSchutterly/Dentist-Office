@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pl" ng-app="doctorApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Doktor</title>
+    <link href="/modules/doctor/doctor.css" rel="stylesheet" type="text/css">
+    <link href="/modules/doctor/patients/patients.css" rel="stylesheet" type="text/css">
+    <link href="/modules/doctor/visits/visits.css" rel="stylesheet" type="text/css">
+    <link href="/lib/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<header></header>
+<div ng-view>
+
+</div>
+</body>
+<script src="/lib/angular.js"></script>
+<script src="/lib/angular-route.js"></script>
+<script src="/lib/ui-bootstrap-tpls-2.5.0.js"></script>
+<script src="/lib/angular-locale_pl-pl.js"></script>
+<script src="/modules/doctor/doctorAppModule.js"></script>
+<script src="/modules/doctor/visits/visitsController.js"></script>
+<script src="/modules/doctor/visits/visitsViewService.js"></script>
+<script src="/modules/doctor/visits/visitAccordionsDirective.js"></script>
+<script src="/modules/doctor/visits/selectedVisitDirective.js"></script>
+<script src="/modules/doctor/visits/table/visitsTableDirective.js"></script>
+<script src="/modules/doctor/visits/table/tableIconsController.js"></script>
+<script src="/modules/doctor/visits/table/modalInstanceController.js"></script>
+<script src="/modules/doctor/patients/patientsController.js"></script>
+<script src="/modules/doctor/patients/patientsViewService.js"></script>
+<script src="/modules/doctor/patients/patientsTableDirective.js"></script>
+<script src="/modules/doctor/patients/selectedPatientDirective.js"></script>
+<script src="/modules/doctor/patients/patientVisitsDirective.js"></script>
+<script src="/modules/shared/sharedServicesModule.js"></script>
+<script src="/modules/shared/dateService.js"></script>
+<script src="/modules/shared/daySchemeService.js"></script>
+<script src="/modules/shared/visitService.js"></script>
+<script src="/modules/shared/patientService.js"></script>
+<script src="/modules/shared/dentalServicesService.js"></script>
+<script src="/modules/shared/arrayUtilitiesService.js"></script>
+</html>

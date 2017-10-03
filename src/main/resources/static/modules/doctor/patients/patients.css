@@ -1,0 +1,22 @@
+.fa-pencil-square-o{
+    color:green;
+}
+
+.popover{
+    border: none !important;
+    padding: 0 !important;
+}
+
+.popover-content {
+    width: 300px;
+    padding: 0 !important;
+}
+
+.panel{
+    margin-bottom: 0!important;
+}
+
+.fa-trash:hover{
+    color: red;
+}
+

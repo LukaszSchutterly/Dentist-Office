@@ -1,0 +1,78 @@
+<div class="panel panel-success">
+    <div title="Edytuj" class="panel-heading click-able-heading" ng-click="spCtrl.editPatient()">
+        <span class="h3" ng-bind="spCtrl.patient.firstName"></span>
+        <span class="h3" ng-bind="spCtrl.patient.lastName"></span>
+        <i class="fa fa-pencil-square-o fa-2x fa-lg"></i>
+    </div>
+    <div class="panel-body">
+        <div ng-if="!spCtrl.editingPatient">
+            <i title="Usuń" class="fa fa-trash fa-2x" ng-click="spCtrl.popover.changePopoverState()"
+               uib-popover-template="spCtrl.popover.templateUrl" popover-is-open="spCtrl.popover.isOpen"
+               popover-placement="bottom">
+            </i>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <strong>Opis:</strong>
+                </div>
+                <div class="col-md-12">
+                    <span ng-bind="spCtrl.patient.description"></span>
+                </div>
+            </div>
+        </div>
+        <div ng-if="spCtrl.editingPatient">
+            <form name="details" style="margin: 10px">
+                <div class="form-group">
+                    <label>Imię*: </label>
+                    <input title="Imię" name="firstName" maxlength="25" class="form-control"
+                           ng-model="spCtrl.patient.firstName" ng-minlength="3" required>
+                    <div ng-if="details.firstName.$touched && details.firstName.$invalid" class="alert alert-danger">
+                        Pole musi zawierac conajmniej 3 znaki.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Nazwisko*:</label>
+                    <input title="Nazwisko" name="lastName" maxlength="30" class="form-control"
+                           ng-model="spCtrl.patient.lastName" ng-minlength="3" required>
+                    <div ng-if="details.phoneNumber.$touched && details.lastName.$invalid" class="alert alert-danger">
+                        Pole musi zawierac conajmniej 3 znaki.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label> Number telefonu*:</label>
+                    <input title="Numer telefonu" name="phoneNumber" maxlength="15" class="form-control"
+                           ng-model="spCtrl.patient.phoneNumber" ng-pattern="spCtrl.phoneRegex">
+                    <div ng-if="details.phoneNumber.$touched && details.phoneNumber.$invalid"
+                         class="alert alert-danger">
+                        Nieprawidłowy numer telefonu.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label> Adres email:</label>
+                    <input title="Adres email" type="email" name="email" class="form-control" maxlength="40"
+                           ng-minlength="7" ng-model="spCtrl.patient.email">
+                    <div ng-if="details.email.$touched && details.email.$invalid" class="alert alert-danger">
+                        Nieprawidłowy email.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label> PESEL:</label>
+                    <input title="pesel" name="pesel" class="form-control" maxlength="11"
+                           ng-minlength="11" ng-model="spCtrl.patient.pesel">
+                    <div ng-if="details.pesel.$touched && details.pesel.$invalid"
+                         class="alert alert-danger">
+                        Numer pesel powinien miec długość 11
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Dodatkowe informacje:</label>
+                    <textarea title="Opis" class="form-control" rows="10"
+                              ng-model="spCtrl.patient.description"></textarea>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary" ng-click="spCtrl.updatePatient()">Potwierdź</button>
+                    <button class="btn btn-danger" ng-click="spCtrl.cancelEdit()">Anuluj</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

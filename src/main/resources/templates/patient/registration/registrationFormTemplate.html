@@ -1,0 +1,68 @@
+<div class="col-md-4">
+    <div class="panel panel-info text-center">
+        <div class="panel-heading">
+            Wybrany termin wizyty:
+        </div>
+        <div class="panel-body">
+            <span ng-bind="rfCtrl.polishDateString()"></span><br/>
+            godz. <span ng-bind="rfCtrl.visit.visitTime"></span>
+        </div>
+    </div>
+</div>
+<div class="col-md-8">
+    <form name="details" ng-submit="details.$valid && rCtrl.nextStage()">
+        <div class="col-md-7">
+            <div class="form-group">
+                <label>Imię*: </label>
+                <input title="Imię" name="firstName" maxlength="25" class="form-control"
+                       ng-model="rfCtrl.visit.firstName" ng-minlength="3" required>
+                <div ng-if="details.firstName.$touched && details.firstName.$invalid" class="alert alert-danger">
+                    Pole musi zawierac conajmniej 3 znaki.
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Nazwisko*:</label>
+                <input title="Nazwisko" name="lastName" maxlength="30" class="form-control"
+                       ng-model="rfCtrl.visit.lastName" ng-minlength="3" required>
+                <div ng-if="details.phoneNumber.$touched && details.lastName.$invalid" class="alert alert-danger">
+                    Pole musi zawierac conajmniej 3 znaki.
+                </div>
+            </div>
+            <div class="form-group">
+                <label> Adres email*:</label>
+                <input title="Adres email" type="email" name="email" class="form-control" maxlength="40"
+                       ng-minlength="7"  ng-model="rfCtrl.visit.email" required>
+                <div ng-if="details.email.$touched && details.email.$invalid" class="alert alert-danger">
+                    Nieprawidłowy email.
+                </div>
+            </div>
+            <div class="form-group">
+                <label> Number telefonu*:</label>
+                <input title="Numer telefonu" name="phoneNumber" maxlength="15" class="form-control"
+                       ng-model="rfCtrl.visit.phoneNumber" ng-pattern="rfCtrl.phoneRegex" required>
+                <div ng-if="details.phoneNumber.$touched && details.phoneNumber.$invalid" class="alert alert-danger">
+                    Nieprawidłowy numer telefonu.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="dentalServices">Wybierz Usługe</label>
+                <select class="form-control" id="dentalServices" ng-model="rfCtrl.visit.dentalService"
+                        ng-options="dentalService for dentalService in rfCtrl.dentalServices">
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Dodatkowe informacje:</label>
+                <textarea title="Opis" class="form-control" rows="7" maxlength="400" ng-model="rfCtrl.visit.description">
+                </textarea>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <button class="btn btn-primary registrationStageBtn" ng-click="rCtrl.prevStage()" style="right:0">
+                <span class="fa fa-arrow-left"></span> Wstecz
+            </button>
+            <button id="submit" class="btn btn-success registrationStageBtn" style="top:50px;right:0">
+                Dalej <span class="fa fa-arrow-right"></span>
+            </button>
+        </div>
+    </form>
+</div>

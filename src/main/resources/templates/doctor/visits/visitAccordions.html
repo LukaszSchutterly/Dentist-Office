@@ -1,0 +1,13 @@
+<uib-accordion>
+    <div class="panel-info" uib-accordion-group ng-repeat="visit in vaCtrl.visitApplications"
+         heading="{{vaCtrl.convertDateStringToPolishString(visit)}}" is-open="vaCtrl.isAccordionOpen[visit.id]">
+        <p>
+            <span class="h3" ng-bind="visit.patient.firstName"></span>
+            <span class="h3" ng-bind="visit.patient.lastName"></span><br/>
+            tel. <span class="h4" ng-bind="visit.patient.phoneNumber"></span>
+        </p>
+        <button class="btn btn-success" ng-click="vaCtrl.accept(visit)">Akceptuj</button>
+        <button class="btn btn-danger " ng-click="vaCtrl.reject(visit)">Odrzuć</button>
+        <button class="btn btn-info" ng-click="vaCtrl.show(visit)">Pokaż Dzień</button>
+    </div>
+</uib-accordion>

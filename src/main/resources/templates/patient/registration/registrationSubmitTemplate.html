@@ -1,0 +1,102 @@
+<div class="col-md-6">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <span ng-bind="rsCtrl.polishDateString()+' '+rsCtrl.visit.visitTime"></span>
+        </div>
+        <div class="panel-body" style="word-wrap: break-word">
+            <div class="row">
+                <div class="col-md-3">
+                    <strong>Imię:</strong>
+                </div>
+                <div class="col-md-9">
+                    <span ng-bind="rsCtrl.visit.firstName"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <strong>Nazwisko:</strong>
+                </div>
+                <div class="col-md-9">
+                    <span ng-bind="rsCtrl.visit.lastName"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <strong>tel.</strong>
+                </div>
+                <div class="col-md-9">
+                    <span ng-bind="rsCtrl.visit.phoneNumber"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <strong>Email:</strong>
+                </div>
+                <div class="col-md-9">
+                    <span ng-bind="rsCtrl.visit.email"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <strong>Usługa:</strong>
+                </div>
+                <div class="col-md-9">
+                    <span ng-show="!rsCtrl.visit.dentalService">Brak</span>
+                    <span ng-bind="rsCtrl.visit.dentalService"></span>
+                </div>
+            </div>
+            <strong>Opis:</strong>
+            <span ng-show="!rsCtrl.visit.description">Brak</span>
+            <span ng-bind="rsCtrl.visit.description"></span>
+
+        </div>
+    </div>
+    <div class="row" ng-if="!rsCtrl.submited">
+        <button class="btn btn-primary registrationStageBtn" ng-click="rCtrl.prevStage()" style="left:15px">
+            <span class="fa fa-arrow-left"></span> Wstecz
+        </button>
+        <button class="btn btn-success registrationStageBtn" ng-click="rsCtrl.submit()" style="left:175px">
+            <i class="fa fa-check"></i> Potwierdź
+        </button>
+    </div>
+</div>
+<div class="col-md-6">
+    <div id="loadingIconContainer" ng-if="rsCtrl.loading===true">
+        <span class="fa fa-spinner faa-spin animated fa-4x"></span>
+    </div>
+    <div class="panel" ng-class="rsCtrl.getPanelClass()" ng-if="rsCtrl.submited && !rsCtrl.loading">
+        <div class="panel-heading">
+            <h4>Rejestracja</h4>
+        </div>
+        <div class="panel-body">
+            <div ng-if="!rsCtrl.serverError && rsCtrl.tokenConfirmed==undefined">
+                <p>
+                    Na adres <strong ng-bind="rsCtrl.visit.patient.email"></strong> został wysłany email
+                    zawierający kod potwierdzający. Aby potwiedzić ważność adresu przepisz go poniżej.
+                </p>
+                <div class="form-group">
+                    <label for="token">Kod potwierdzający</label>
+                    <input id="token" class="form-control" ng-model="rsCtrl.token">
+                </div>
+                <button class="btn btn-success" ng-click="rsCtrl.confirmToken()">
+                    Potwierdź <i class="fa fa-check-circle"></i>
+                </button>
+            </div>
+            <div ng-if="rsCtrl.tokenConfirmed===false">
+                <p>Nieprawidałowy kod.<br/></p>
+                <button class="btn btn-success" ng-click="rsCtrl.resendEmail()">
+                    <i class="fa fa-repeat"></i> Wyślij ponownie
+                </button>
+            </div>
+            <div ng-if="rsCtrl.tokenConfirmed">
+                <p>
+                    Udało sie potwierdzić adres email. <strong>W ciągu 24 godzin otrzymasz email </strong>
+                    z informacja czy twoja propozycja wizyty została zaakceptowana.
+                </p>
+            </div>
+            <div ng-if="rsCtrl.serverError">
+                <h4>Bład servera spróbuj poźniej.</h4>
+            </div>
+        </div>
+    </div>
+</div>

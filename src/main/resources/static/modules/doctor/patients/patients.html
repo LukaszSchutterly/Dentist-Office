@@ -1,0 +1,24 @@
+<div class="container-fluid" ng-controller="patientsController as pCtrl">
+    <div class="col-md-9">
+        <patients-table></patients-table>
+    </div>
+    <div class="col-md-3">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-8">
+                <a href="#/">
+                    <button class="btn btn-primary" style="width: 100%" ng-click="pCtrl.visitsViewService.updateView()">
+                        <i class="fa fa-book"></i> Wizyty
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div ng-if="pCtrl.patient" style="margin-top: 20px">
+            <div class="row">
+                <selected-patient></selected-patient>
+            </div>
+            <div class="row">
+                <patient-visits></patient-visits>
+            </div>
+        </div>
+    </div>
+</div>

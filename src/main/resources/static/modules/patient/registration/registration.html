@@ -1,0 +1,22 @@
+<div ng-controller="registrationController as rCtrl">
+    <div class="row" ng-show="rCtrl.registrationStage===0">
+        <h3>Rejestracja</h3>
+        <p>Rejestracji można dokonać pod następującym numerem telefonu:<br/>
+            <span class="h4">tel. 423423453</span><br/>
+            lub też skorzystać z aplikacji</p>
+        <button type="button" class="btn btn-primary" ng-click="rCtrl.nextStage()">Rejestracja Online</button>
+    </div>
+    <div class="row" ng-if="rCtrl.registrationStage!==0">
+        <uib-progressbar max="3" value="rCtrl.registrationStage-1" type="success" class="progress-striped active">
+        </uib-progressbar>
+    </div>
+    <div class="row" ng-if="rCtrl.registrationStage===1">
+        <visit-term-chooser></visit-term-chooser>
+    </div>
+    <div class="row" ng-if="rCtrl.registrationStage===2">
+        <registration-form></registration-form>
+    </div>
+    <div class="row" ng-if="rCtrl.registrationStage>2">
+        <registration-submit></registration-submit>
+    </div>
+</div>

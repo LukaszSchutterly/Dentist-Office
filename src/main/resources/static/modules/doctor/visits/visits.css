@@ -1,0 +1,43 @@
+.modal-backdrop {
+    background-color: transparent !important;
+}
+
+.modal {
+    text-align: center;
+    padding: 0 !important;
+}
+
+.modal::before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -4px;
+}
+
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.inactive {
+    background-color: #e6e6e6 !important;
+}
+
+.table-icons-container {
+    padding: 0 !important;
+}
+
+.table-icon {
+    padding: 0 !important;
+    border-bottom: 0 !important;
+}
+
+.table-icons-container:hover {
+   background-color: #6fdc6f;
+}
+
+tr.hover:hover td {
+    background-color: #fce6c4;
+}

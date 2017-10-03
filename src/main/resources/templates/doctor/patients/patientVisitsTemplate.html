@@ -1,0 +1,40 @@
+<uib-accordion close-others="oneAtATime">
+    <h3>Wizyty:</h3>
+    <div uib-accordion-group ng-repeat="visit in pvCtrl.visits"
+         ng-class="{'panel-success':visit.accepted,'panel-info':visit.accepted===false}"
+         heading="{{pvCtrl.convertDateStringToPolishString(visit.visitDate)+' '+visit.visitTime}}">
+        <div ng-if="!pvCtrl.editingVisit">
+            <i title="Edytuj" class="fa fa-pencil-square-o fa-2x" ng-click="pvCtrl.editVisit(visit)"></i>
+            <div class="row">
+                <div class="col-md-3">
+                    <strong>Usługa:</strong>
+                </div>
+                <div class="col-md-9">
+                    <span ng-show="!visit.dentalService">Brak</span>
+                    <span ng-bind="visit.dentalService"></span>
+                </div>
+            </div>
+            <strong>Opis:</strong>
+            <span ng-show="!visit.description">Brak</span>
+            <span ng-bind="visit.description"></span>
+        </div>
+        <div ng-if="pvCtrl.editingVisit">
+            <form name="details" ng-submit="details.$valid && pvCtrl.updateVisit()">
+                <div class="form-group">
+                    <label for="dentalServices">Wybierz Usługe</label>
+                    <select class="form-control" id="dentalServices" ng-model="pvCtrl.visit.dentalService"
+                            ng-options="dentalService for dentalService in pvCtrl.dentalServices">
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Dodatkowe informacje:</label>
+                    <textarea title="Opis" class="form-control" rows="5" ng-model="pvCtrl.visit.description"></textarea>
+                </div>
+                <div class="row text-center">
+                    <button class="btn btn-primary">Potwierdź</button>
+                    <button class="btn btn-danger" ng-click="pvCtrl.cancelEdit()">Anuluj</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</uib-accordion>

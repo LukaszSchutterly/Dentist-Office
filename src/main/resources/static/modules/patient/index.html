@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pl" ng-app="patientApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Dentysta Nysa</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/modules/patient/index.css" rel="stylesheet" type="text/css">
+    <link href="/modules/patient/registration/registration.css" rel="stylesheet" type="text/css">
+    <link href="/lib/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="/lib/font-awesome-animation.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<header>
+    <h1>Gabinet Stomatologiczny Nysa</h1>
+</header>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <div class="list-group">
+                <a href="/" class="list-group-item">Strona głowna</a>
+                <a href="#/registration" class="list-group-item">Rejestracja</a>
+                <a href="#/localization" class="list-group-item">Jak dojechać?</a>
+            </div>
+        </div>
+        <div class="col-md-10" ng-view>
+
+        </div>
+    </div>
+</div>
+</body>
+<script src="/lib/angular.js"></script>
+<script src="/lib/angular-route.js"></script>
+<script src="/lib/ui-bootstrap-tpls-2.5.0.js"></script>
+<script src="/modules/patient/patientAppModule.js"></script>
+<script src="/modules/patient/registration/registrationController.js"></script>
+<script src="/modules/patient/registration/visitTermChooserDirective.js"></script>
+<script src="/modules/patient/registration/registrationFormDirective.js"></script>
+<script src="/modules/patient/registration/registrationSubmitDirective.js"></script>
+<script src="/modules/patient/registration/registrationService.js"></script>
+<script src="/modules/patient/registration/registrationRestService.js"></script>
+<script src="/modules/patient/localization/localization.js"></script>
+<script src="/modules/shared/sharedServicesModule.js"></script>
+<script src="/modules/shared/dateService.js"></script>
+<script src="/modules/shared/dentalServicesService.js"></script>
+</html>
