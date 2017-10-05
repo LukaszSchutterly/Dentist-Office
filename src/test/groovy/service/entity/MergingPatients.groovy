@@ -1,9 +1,12 @@
 package service.entity
 
 import dentist.office.DentistOfficeApplication
+import dentist.office.exception.IllegalMergeException
 import dentist.office.model.entity.patient.Patient
-import dentist.office.service.entity.patient.PatientService
-import dentist.office.service.entity.visit.VisitService
+import dentist.office.repositories.PatientRepo
+import dentist.office.repositories.VisitRepo
+import dentist.office.service.entity.patient.PatientMergingService
+import dentist.office.service.entity.patient.PatientMergingServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ContextConfiguration
@@ -11,46 +14,69 @@ import org.springframework.transaction.annotation.Transactional
 import spock.lang.Specification
 
 @SpringBootTest(classes = DentistOfficeApplication.class)
-@ContextConfiguration
-@Transactional
 class MergingPatients extends Specification {
 
     @Autowired
-    VisitService visitService
-    @Autowired
-    PatientService patientService
+    private PatientMergingService patientMergingService
+    private PatientRepo patientRepo
+    private VisitRepo visitRepo
 
     Patient patientOne
-    Patient patientTwo
+    String pesel
 
     def setup(){
-        String pesel="11122233344"
-
         patientOne=new Patient("John","Doe")
+        pesel="12312312312"
         patientOne.setPesel(pesel)
-        patientOne.setDescription("a")
-        patientOne.setEmail("mail@email.com")
-        patientOne.setPhoneNumber("111111111")
 
-        patientTwo=new Patient("John","Doe")
-        patientTwo.setPesel(pesel)
-        patientTwo.setEmail("email@mail.com")
-        patientTwo.setDescription("b")
-        patientTwo.setPhoneNumber("222222222")
+        patientRepo=Mock(PatientRepo)
+        visitRepo=Mock(VisitRepo)
+
+        patientMergingService=new PatientMergingServiceImpl(patientRepo,visitRepo)
     }
 
 
-    def "saveOrUpdate should merge patients with same PESEL"(){
-        setup:
-        patientService.saveOrUpdate(patientOne)
+    def "should just save if there isn't patient with same PESEL"(){
         when:
-        patientService.saveOrUpdate(patientTwo)
+        patientMergingService.saveOrMergeByPesel(patientOne)
         then:
-        patientService.getById(patientOne.getId())==null
-        patientTwo.getEmail().equals(patientOne.getEmail())
-        patientTwo.getPhoneNumber().equals(patientOne.getPhoneNumber())
-        patientTwo.getDescription().equals("b a")
+        1 * patientRepo.findByPesel(pesel) >> null
+        1 * patientRepo.save(patientOne)
+        0 * patientRepo._(*_)
     }
 
+    def "should just save if found same patient in database"(){
+        when:
+        patientMergingService.saveOrMergeByPesel(patientOne)
+        then:
+        1 * patientRepo.findByPesel(pesel) >> patientOne
+        1 * patientRepo.save(patientOne)
+        0 * patientRepo._(*_)
+    }
+
+    def "should throw exception if trying to merge patients with different name details"(){
+        setup:
+        Patient patientTwo=new Patient("Ann","Doe")
+        patientTwo.id=2
+        when:
+        patientMergingService.saveOrMergeByPesel(patientOne)
+        then:
+        1 * patientRepo.findByPesel(pesel) >> patientTwo
+        thrown(IllegalMergeException)
+        0 * patientRepo._(*_)
+    }
+
+    def "should delete mergedFrom patient form database and save mergedInto"(){
+        setup:
+        Patient patientTwo=new Patient("John","Doe")
+        patientTwo.id=2
+        when:
+        patientMergingService.saveOrMergeByPesel(patientOne)
+        then:
+        1 * patientRepo.findByPesel(pesel) >> patientTwo
+        1 * patientRepo.delete(patientOne)
+        1 * patientRepo.save(patientTwo)
+        0 * patientRepo._(*_)
+    }
 
 }

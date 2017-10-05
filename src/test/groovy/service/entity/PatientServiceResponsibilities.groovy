@@ -35,12 +35,12 @@ class PatientServiceResponsibilities extends Specification {
     def "getAllOrderByLastName should return patients sorted ignore case by last name"() {
         setup:
         Patient patientTwo = new Patient("Ann", "Aoe")
-        patientRepo.findAll() >> Arrays.asList(patient, patientTwo)
+        patientTwo.id=1
         when:
         List<Patient> patientList = patientService.getAllOrderByLastName()
         then:
-        patientList.indexOf(patient) == 1
-        patientList.indexOf(patientTwo) == 0
+        1 * patientRepo.findAll() >> Arrays.asList(patient, patientTwo)
+        patientList.indexOf(patient) > patientList.indexOf(patientTwo)
     }
 
 }

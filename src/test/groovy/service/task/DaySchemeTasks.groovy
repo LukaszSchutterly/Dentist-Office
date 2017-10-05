@@ -2,7 +2,7 @@ package service.task
 
 import dentist.office.DentistOfficeApplication
 import dentist.office.model.entity.day.DayScheme
-import dentist.office.model.entity.day.DaySchemeStaticFactory
+import dentist.office.model.entity.day.DaySchemeFactory
 import dentist.office.service.entity.day.DaySchemeService
 import dentist.office.service.task.DaySchemeCreatingTask
 import dentist.office.service.task.DaySchemeDestroyingTask
@@ -24,17 +24,24 @@ class DaySchemeTasks extends Specification {
     @Autowired
     DaySchemeService daySchemeService
 
-    def "running daySchemeCreatingTask should populate database"() {
+    def "there should always be at least 30 day schemes for future"() {
         when:
         daySchemeCreatingTask.createDaySchemesForFuture()
         then:
-        daySchemeService.getAll().size() != 0
+        daySchemeService.getAll().size() >= 30
+    }
+
+    def "there should always be less than 32 day schemes for future"() {
+        when:
+        daySchemeCreatingTask.createDaySchemesForFuture()
+        then:
+        daySchemeService.getAll().size() < 32
     }
 
     def "running daySchemeDestroyingTask should remove old daySchemes in database"() {
         setup:
         LocalDate oldDate = LocalDate.of(1000, 01, 01)
-        DayScheme oldDayScheme = DaySchemeStaticFactory.createDefaultDayScheme(oldDate)
+        DayScheme oldDayScheme = DaySchemeFactory.createDefaultDayScheme(oldDate)
         daySchemeService.saveOrUpdate(oldDayScheme)
 
         assert daySchemeService.getById(oldDate)!=null

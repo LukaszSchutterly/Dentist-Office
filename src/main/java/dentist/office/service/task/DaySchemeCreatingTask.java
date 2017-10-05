@@ -1,7 +1,7 @@
 package dentist.office.service.task;
 
 import dentist.office.model.entity.day.DayScheme;
-import dentist.office.model.entity.day.DaySchemeStaticFactory;
+import dentist.office.model.entity.day.DaySchemeFactory;
 import dentist.office.service.entity.day.DaySchemeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -40,7 +40,7 @@ public class DaySchemeCreatingTask {
         IntStream.rangeClosed(1, howMany).forEach(i -> {
             LocalDate dateUnderProcessing = latestDaySchemeDate.plusDays(i);
 
-            DayScheme newDayScheme = DaySchemeStaticFactory.createDefaultDayScheme(dateUnderProcessing);
+            DayScheme newDayScheme = DaySchemeFactory.createDefaultDayScheme(dateUnderProcessing);
 
             daySchemeService.saveOrUpdate(newDayScheme);
         });

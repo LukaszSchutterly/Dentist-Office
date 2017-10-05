@@ -1,5 +1,6 @@
 package dentist.office.service.entity.patient;
 
+import dentist.office.exception.IllegalMergeException;
 import dentist.office.model.entity.patient.Patient;
 import dentist.office.repositories.PatientRepo;
 import dentist.office.service.entity.GenericServiceImpl;
@@ -15,6 +16,7 @@ import java.util.List;
 public class PatientServiceImpl extends GenericServiceImpl<Patient, Long> implements PatientService {
 
     private PatientRepo patientRepo;
+    private PatientMergingService patientMergingService;
     private VisitService visitService;
 
     @Autowired
@@ -28,6 +30,11 @@ public class PatientServiceImpl extends GenericServiceImpl<Patient, Long> implem
         this.visitService = visitService;
     }
 
+    @Autowired
+    public void setPatientMergingService(PatientMergingService patientMergingService) {
+        this.patientMergingService = patientMergingService;
+    }
+
     @Override
     public List<Patient> getAllOrderByLastName() {
         List<Patient> patients = patientRepo.findAll();
@@ -38,42 +45,29 @@ public class PatientServiceImpl extends GenericServiceImpl<Patient, Long> implem
     }
 
     @Override
+    public void removeById(Long id) {
+        visitService.removeVisitsByPatientId(id);
+        patientRepo.delete(id);
+    }
+
+    @Override
     public void saveOrUpdate(Patient patient) {
 
         if (patient.getPesel() != null) {
-            Patient patientInDb = patientRepo.findByPesel(patient.getPesel());
-
-            if (patientInDb != null && !patientInDb.equals(patient)) {
-                mergePatients(patient, patientInDb);
-            } else {
-                patientRepo.save(patient);
-            }
-
+            tryToMergePatient(patient);
         } else
             patientRepo.save(patient);
     }
 
-    private void mergePatients(Patient mergeInto, Patient mergeFrom) {
+    private void tryToMergePatient(Patient patient){
 
-        if (mergeFrom.getPhoneNumber() != null)
-            mergeInto.setPhoneNumber(mergeFrom.getPhoneNumber());
-
-        if (mergeFrom.getEmail() != null)
-            mergeInto.setEmail(mergeFrom.getEmail());
-
-        if (mergeFrom.getDescription() != null)
-            mergeInto.addDescription(mergeFrom.getDescription());
-
-        patientRepo.save(mergeInto);
-        visitService.mergeVisits(mergeInto, mergeFrom);
-        patientRepo.delete(mergeFrom);
-    }
-
-
-    @Override
-    public void removeById(Long id) {
-        visitService.removeVisitsByPatientId(id);
-        patientRepo.delete(id);
+        try {
+            patientMergingService.saveOrMergeByPesel(patient);
+        } catch (IllegalMergeException e) {
+            patient.setPesel(null);
+            patientRepo.save(patient);
+            e.getMessage();
+        }
     }
 
 }

@@ -15,10 +15,6 @@ public interface VisitService extends GenericService<Visit, Long> {
 
     List<Visit> getVisitsByPatientIdAndConfirmedOrderedByDate(Long id, boolean confirmed);
 
-    List<Visit> getVisitsByPatientIdAndConfirmed(Long id, boolean confirmed);
-
-    void mergeVisits(Patient mergeInto, Patient mergeFrom);
-
     void removeVisitsByPatientId(Long patientId);
 
     void publicSave(Visit visit);

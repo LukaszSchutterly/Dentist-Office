@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import dentist.office.DentistOfficeApplication
 import dentist.office.controller.rest.DaySchemeController
 import dentist.office.model.entity.day.DayScheme
-import dentist.office.model.entity.day.DaySchemeStaticFactory
+import dentist.office.model.entity.day.DaySchemeFactory
 import dentist.office.service.entity.day.DaySchemeService
 import dentist.office.service.entity.token.VisitConfirmationTokenService
 import org.springframework.beans.factory.annotation.Autowired
@@ -49,7 +49,7 @@ class DaySchemeRestApi extends Specification {
 
     def "get mapping should work"() {
         setup:
-        oldDayScheme = DaySchemeStaticFactory.createDefaultDayScheme(someDate)
+        oldDayScheme = DaySchemeFactory.createDefaultDayScheme(someDate)
         when:
         mockMvc.perform(get("/daySchemes/" + stringDate))
                 .andExpect(status().isOk())
@@ -67,7 +67,7 @@ class DaySchemeRestApi extends Specification {
 
     def "put mapping should work"() {
         setup:
-        oldDayScheme = DaySchemeStaticFactory.createDefaultDayScheme(someDate)
+        oldDayScheme = DaySchemeFactory.createDefaultDayScheme(someDate)
         oldDaySchemeJsonString = objectMapper.writeValueAsString(oldDayScheme)
         when:
         mockMvc.perform(put("/daySchemes").contentType(MediaType.APPLICATION_JSON)

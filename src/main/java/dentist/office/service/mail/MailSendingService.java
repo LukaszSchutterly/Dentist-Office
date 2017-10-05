@@ -24,8 +24,8 @@ public class MailSendingService {
     private void sendMimeMessage(MimeMessage mimeMessage, String content, String Subject, String emailAddress) {
 
         try {
-            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, false, "UTF-8");
-            mimeMessage.setContent(content, "text/html");
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
+            mimeMessage.setContent(content,"text/html; charset=UTF-8");
             mimeMessageHelper.setTo(emailAddress);
             mimeMessageHelper.setSubject(Subject);
 
@@ -44,7 +44,7 @@ public class MailSendingService {
         String subject = "Rejestracja";
         String content = "<p>Twój kod do rejestracji wizyty to: <br/>" +
                 "<strong>" + token + "</strong><br/>" +
-                " Wiadmosść wygeneraowana automatycznie</p>";
+                " Wiadmość wygeneraowana automatycznie</p>";
 
         MimeMessage mimeMessage = mailSender.createMimeMessage();
 

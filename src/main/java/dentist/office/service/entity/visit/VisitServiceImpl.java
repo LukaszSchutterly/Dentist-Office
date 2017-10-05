@@ -1,7 +1,6 @@
 package dentist.office.service.entity.visit;
 
 import dentist.office.events.VisitConfirmationViaMailEvent;
-import dentist.office.model.entity.patient.Patient;
 import dentist.office.model.entity.visit.Visit;
 import dentist.office.repositories.VisitRepo;
 import dentist.office.service.entity.GenericServiceImpl;
@@ -71,18 +70,6 @@ public class VisitServiceImpl extends GenericServiceImpl<Visit, Long> implements
     }
 
     @Override
-    public void mergeVisits(Patient mergeInto, Patient mergeFrom) {
-        List<Visit> visits = visitRepo.findAllByPatientIdAndConfirmed(mergeFrom.getId(), true);
-
-        if (visits != null) {
-            visits.forEach(v -> {
-                v.setPatient(mergeInto);
-                visitRepo.save(v);
-            });
-        }
-    }
-
-    @Override
     public List<Visit> getConfirmedVisitsByAccepted(boolean accepted) {
         return visitRepo.findAllByAcceptedAndConfirmed(accepted, true);
     }
@@ -95,11 +82,6 @@ public class VisitServiceImpl extends GenericServiceImpl<Visit, Long> implements
     @Override
     public List<Visit> getVisitsByPatientIdAndConfirmedOrderedByDate(Long id, boolean confirmed) {
         return visitRepo.findAllByPatientIdAndConfirmedOrderByVisitDateDescVisitTimeDesc(id, confirmed);
-    }
-
-    @Override
-    public List<Visit> getVisitsByPatientIdAndConfirmed(Long id, boolean confirmed) {
-        return visitRepo.findAllByPatientIdAndConfirmed(id, confirmed);
     }
 
     @Override

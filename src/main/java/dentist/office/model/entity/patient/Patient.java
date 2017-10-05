@@ -24,7 +24,7 @@ public class Patient {
     private String phoneNumber;
     @Column(length = 40)
     private String email;
-    @Column(length = 11)
+    @Column(unique = true,length = 11)
     private String pesel;
     @Column(length = 1000)
     private String description;
@@ -36,7 +36,6 @@ public class Patient {
     public Patient(@NotBlank String firstName, @NotBlank String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-
     }
 
     public long getId() {
@@ -85,6 +84,12 @@ public class Patient {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public boolean equalsWithNameDetails(Patient patient){
+        if(patient == null) return false;
+
+        return  this.firstName.equals(patient.getFirstName()) && this.lastName.equals(patient.getLastName());
     }
 
     @Override

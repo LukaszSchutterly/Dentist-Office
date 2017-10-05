@@ -1,6 +1,7 @@
 package dentist.office.events;
 
 import dentist.office.service.task.DaySchemeCreatingTask;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -10,6 +11,7 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
 
     private DaySchemeCreatingTask daySchemeCreatingTask;
 
+    @Autowired
     public ApplicationStartup(DaySchemeCreatingTask daySchemeCreatingTask) {
         this.daySchemeCreatingTask = daySchemeCreatingTask;
     }
@@ -17,7 +19,6 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
         daySchemeCreatingTask.createDaySchemesForFuture();
-        return;
     }
 
 }

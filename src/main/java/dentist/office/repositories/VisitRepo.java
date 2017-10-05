@@ -14,7 +14,7 @@ public interface VisitRepo extends JpaRepository<Visit, Long> {
 
     List<Visit> findAllByPatientIdAndConfirmedOrderByVisitDateDescVisitTimeDesc(Long patientId, boolean confirmed);
 
-    List<Visit> findAllByPatientIdAndConfirmed(Long patientId, boolean confirmed);
+    List<Visit> findAllByPatientId(Long patientId);
 
     void deleteByPatientId(Long patientId);
 

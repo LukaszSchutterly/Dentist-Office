@@ -10,16 +10,20 @@ import java.util.TreeSet;
 import java.util.stream.IntStream;
 
 @Component
-public class DaySchemeStaticFactory {
+public class DaySchemeFactory {
 
     private static final int DEFAULT_STARTING_HOUR = 8;
     private static final int DEFAULT_SATURDAY_ENDING_HOUR = 14;
     private static final int DEFAULT_REGULAR_DAY_ENDING_HOUR = 18;
 
     public static DayScheme createDefaultDayScheme(LocalDate localDate) {
+        DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+        Set<LocalTime> availableVisitTimes = prepareDefaultAvailableVisitTimes(dayOfWeek);
+
         DayScheme dayScheme = new DayScheme();
         dayScheme.setDate(localDate);
-        dayScheme.setAvailableVisitTimes(prepareDefaultAvailableVisitTimes(localDate.getDayOfWeek()));
+        dayScheme.setAvailableVisitTimes(availableVisitTimes);
+
         return dayScheme;
     }
 

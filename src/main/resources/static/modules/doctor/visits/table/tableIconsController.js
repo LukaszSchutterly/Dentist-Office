@@ -61,7 +61,6 @@
 
                 modalInstance.result.then(function (visit) {
                     visit.visitTime = visitTime;
-                    console.log(visit);
 
                     visitService.postVisit(visit).then(function () {
                         visitsViewService.updateView();

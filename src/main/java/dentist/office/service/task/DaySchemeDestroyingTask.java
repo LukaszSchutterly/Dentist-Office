@@ -19,12 +19,7 @@ public class DaySchemeDestroyingTask {
     @Scheduled(cron = "0 0 1 * * *")
     public void destroyPastDaySchemes() {
         List<DayScheme> daySchemesToDestroy = daySchemeService.getPastDaySchemes();
-
-        daySchemesToDestroy.forEach(d -> {
-            d.setAvailableVisitTimes(null);
-            daySchemeService.removeById(d.getDate());
-        });
-
+        daySchemesToDestroy.forEach(d ->  daySchemeService.removeById(d.getDate()));
     }
 
 }
