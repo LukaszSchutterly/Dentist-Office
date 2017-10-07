@@ -52,10 +52,10 @@
         </div>
     </div>
     <div class="row" ng-if="!rsCtrl.submited">
-        <button class="btn btn-primary registrationStageBtn" ng-click="rCtrl.prevStage()" style="left:15px">
+        <button class="btn btn-primary registrationStageBtn" ng-click="rsCtrl.registrationService.prevStage()" style="width:150px">
             <span class="fa fa-arrow-left"></span> Wstecz
         </button>
-        <button class="btn btn-success registrationStageBtn" ng-click="rsCtrl.submit()" style="left:175px">
+        <button class="btn btn-success registrationStageBtn" ng-click="rsCtrl.submit()" style="width:150px">
             <i class="fa fa-check"></i> Potwierdź
         </button>
     </div>

@@ -1,6 +1,8 @@
 package dentist.office.model.entity.visit;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import dentist.office.model.DentalService;
 import dentist.office.model.entity.patient.Patient;
 import org.hibernate.validator.constraints.Length;
@@ -23,7 +25,6 @@ public class Visit {
     private long id;
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate visitDate;
     @NotNull
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm")

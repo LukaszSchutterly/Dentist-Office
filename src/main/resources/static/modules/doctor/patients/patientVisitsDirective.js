@@ -8,7 +8,7 @@
                 var pvCtrl = this;
                 pvCtrl.patientsViewService = patientsViewService;
                 pvCtrl.editingVisit = false;
-                getDentalServicesList();
+                pvCtrl.dentalServices = dentalServicesService.dentalServicesList;
 
                 pvCtrl.editVisit = function (visit) {
                     pvCtrl.visit = visit;
@@ -37,15 +37,6 @@
                 pvCtrl.convertDateStringToPolishString = function (dateString) {
                     return dateService.convertDateStringToPolishString(dateString);
                 };
-
-                function getDentalServicesList() {
-
-                    dentalServicesService.getDentalServicesList().then(function (data) {
-                        pvCtrl.dentalServices = data;
-                    }, function () {
-                        console.log("Failed to get dental services list")
-                    });
-                }
 
                 $scope.$watch('pvCtrl.patientsViewService.visits', function (newValue) {
                     pvCtrl.visits = newValue;

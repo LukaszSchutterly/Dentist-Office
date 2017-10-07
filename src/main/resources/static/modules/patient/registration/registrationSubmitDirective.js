@@ -8,12 +8,11 @@
                 var rsCtrl = this;
                 rsCtrl.submited = false;
                 rsCtrl.visit = registrationService.visit;
+                rsCtrl.registrationService=registrationService;
 
                 rsCtrl.submit = function () {
                     rsCtrl.submited = true;
                     rsCtrl.loading = true;
-
-                    console.log(rsCtrl.visit);
 
                     registrationRestService.registerVisit(rsCtrl.visit).then(function () {
                         rsCtrl.loading = false;

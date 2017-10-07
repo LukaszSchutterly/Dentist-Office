@@ -22,16 +22,11 @@ public class LoggingAspect {
 
     }
 
-    @Pointcut("execution(* dentist.office.controller.advice.*.*(..))")
-    public void adviceControllersPointcut() {
-
-    }
-
     @Pointcut("execution(* dentist.office.service.*.*.*(..)) || execution(* dentist.office.service.*.*.*.*(..))")
     public void servicesPointcut() {
     }
 
-    @Before("restControllersPointcut() || adviceControllersPointcut() || servicesPointcut()")
+    @Before("restControllersPointcut() || servicesPointcut()")
     public void loggingRestControllers(JoinPoint joinPoint) {
         String className = joinPoint.getThis().getClass().getSimpleName().split("\\$")[0];
         List<Object> args = Arrays.asList(joinPoint.getArgs());

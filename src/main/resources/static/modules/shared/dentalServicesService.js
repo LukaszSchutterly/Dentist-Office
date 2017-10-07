@@ -2,10 +2,10 @@
     angular.module("sharedServices").service("dentalServicesService", function ($http) {
         var self = this;
 
-        self.getDentalServicesList = function () {
+        self.init = function () {
 
-            return $http.get("/services").then(function (response) {
-                return response.data;
+            $http.get("/services").then(function (response) {
+                self.dentalServicesList = response.data;
             })
         }
 

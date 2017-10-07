@@ -1,11 +1,7 @@
 (function () {
-    var app=angular.module("patientApp");
-    app.controller("localizationController",localizationController);
-
-    function localizationController() {
+    angular.module("patientApp").controller("localizationController", function () {
 
 
-
-    }
+    });
 
 })();

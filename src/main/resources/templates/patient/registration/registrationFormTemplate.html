@@ -10,7 +10,7 @@
     </div>
 </div>
 <div class="col-md-8">
-    <form name="details" ng-submit="details.$valid && rCtrl.nextStage()">
+    <form name="details" ng-submit="details.$valid && rfCtrl.registrationService.nextStage()">
         <div class="col-md-7">
             <div class="form-group">
                 <label>Imię*: </label>
@@ -56,11 +56,11 @@
                 </textarea>
             </div>
         </div>
-        <div class="col-md-5">
-            <button class="btn btn-primary registrationStageBtn" ng-click="rCtrl.prevStage()" style="right:0">
+        <div class="col-md-3 col-md-offset-2">
+            <button class="btn btn-primary registrationStageBtn" ng-click="rfCtrl.registrationService.prevStage()">
                 <span class="fa fa-arrow-left"></span> Wstecz
             </button>
-            <button id="submit" class="btn btn-success registrationStageBtn" style="top:50px;right:0">
+            <button class="btn btn-success registrationStageBtn">
                 Dalej <span class="fa fa-arrow-right"></span>
             </button>
         </div>

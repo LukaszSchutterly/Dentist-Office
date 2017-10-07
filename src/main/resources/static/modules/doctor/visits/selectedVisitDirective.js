@@ -8,7 +8,7 @@
                 var svCtrl = this;
                 svCtrl.visitsViewService = visitsViewService;
                 svCtrl.editingVisit = false;
-                getDentalServicesList();
+                svCtrl.dentalServices = dentalServicesService.dentalServicesList;
 
                 svCtrl.editVisit = function () {
                     svCtrl.preEditVisit = JSON.parse(JSON.stringify(svCtrl.visit));
@@ -32,15 +32,6 @@
                         console.log("Failed to update visit")
                     });
                 };
-
-                function getDentalServicesList() {
-
-                    dentalServicesService.getDentalServicesList().then(function (data) {
-                        svCtrl.dentalServices = data;
-                    }, function () {
-                        console.log("Failed to get dental services list")
-                    });
-                }
 
                 $scope.$watch('svCtrl.visitsViewService.selectedVisit', function (newValue) {
                     svCtrl.visit = newValue;

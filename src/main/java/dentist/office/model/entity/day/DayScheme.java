@@ -25,6 +25,11 @@ public class DayScheme {
 
     }
 
+    DayScheme(LocalDate date, Set<LocalTime> availableVisitTimes) {
+        this.date = date;
+        this.availableVisitTimes = availableVisitTimes;
+    }
+
     public void addAvailableVisitTime(LocalTime newAvailableVisitTime) {
 
         if (!availableVisitTimes.contains(newAvailableVisitTime)) {

@@ -7,16 +7,9 @@
             controller: function ($scope,dateService, registrationService, dentalServicesService) {
                 var rfCtrl = this;
                 rfCtrl.visit = registrationService.visit;
+                rfCtrl.registrationService=registrationService;
                 rfCtrl.phoneRegex = '[\-\+\(\)0-9]{8,15}';
-                init();
-
-                function init() {
-                    dentalServicesService.getDentalServicesList().then(function (data) {
-                        rfCtrl.dentalServices = data;
-                    }, function () {
-                        console.log("Failed to load dental services")
-                    })
-                }
+                rfCtrl.dentalServices=dentalServicesService.dentalServicesList;
 
                 rfCtrl.polishDateString = function () {
                     return dateService.convertDateStringToPolishString(rfCtrl.visit.visitDate)

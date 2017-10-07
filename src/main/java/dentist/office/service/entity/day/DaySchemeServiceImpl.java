@@ -58,10 +58,7 @@ public class DaySchemeServiceImpl extends GenericServiceImpl<DayScheme, LocalDat
     public boolean isVisitTimeAvailable(LocalDateTime localDateTime) {
         DayScheme dayScheme = daySchemeRepo.findOne(localDateTime.toLocalDate());
 
-        if (dayScheme == null)
-            return false;
-
-        return dayScheme.getAvailableVisitTimes().contains(localDateTime.toLocalTime());
+        return dayScheme != null && dayScheme.getAvailableVisitTimes().contains(localDateTime.toLocalTime());
     }
 
 }

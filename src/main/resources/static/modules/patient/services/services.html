@@ -1,0 +1,18 @@
+<div ng-controller="servicesController as sCtrl">
+    <div class="row text-center">
+        <h3>Usługi</h3>
+    </div>
+    <div class="row text-center">
+        <ul class="col-md-4 col-md-offset-4 list-group">
+            <li class="list-group-item" ng-repeat="service in sCtrl.dentalServices">
+                <span ng-bind="service"></span>
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <ul class="col-md-4 col-md-offset-4">
+            <li>Nie wykonuję usuwania zębów.</li>
+            <li>Nie przyjmuje dzieci poniżej 5 roku życia.</li>
+        </ul>
+    </div>
+</div>

@@ -1,10 +1,23 @@
 <div ng-controller="registrationController as rCtrl">
-    <div class="row" ng-show="rCtrl.registrationStage===0">
+    <div class="text-center">
         <h3>Rejestracja</h3>
-        <p>Rejestracji można dokonać pod następującym numerem telefonu:<br/>
-            <span class="h4">tel. 423423453</span><br/>
-            lub też skorzystać z aplikacji</p>
-        <button type="button" class="btn btn-primary" ng-click="rCtrl.nextStage()">Rejestracja Online</button>
+    </div>
+    <div class="row" ng-show="rCtrl.registrationStage===0">
+        <div class="panel panel-info col-md-6 col-md-offset-3 text-center">
+            <div class="panel-body">
+                <div class="row ">
+                    <p>Rejestracji można dokonać pod następującym numerem telefonu:<br/>
+                        <span class="h4">tel. 423423453</span><br/>
+                        lub też skorzystać z aplikacji:<br/>
+                    </p>
+                </div>
+                <div class="row">
+                    <button type="button" class="btn btn-primary" ng-click="rCtrl.registerOnline()">
+                        Rejestracja Online
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row" ng-if="rCtrl.registrationStage!==0">
         <uib-progressbar max="3" value="rCtrl.registrationStage-1" type="success" class="progress-striped active">

@@ -1,7 +1,7 @@
 package dentist.office.service.task;
 
 import dentist.office.model.entity.day.DayScheme;
-import dentist.office.model.entity.day.DaySchemeFactory;
+import dentist.office.model.entity.day.DaySchemeBuilder;
 import dentist.office.service.entity.day.DaySchemeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,10 +17,12 @@ public class DaySchemeCreatingTask {
     private static final int NUMBER_OF_REQUIRED_FUTURE_SCHEMES = 30;
 
     private DaySchemeService daySchemeService;
+    private DaySchemeBuilder daySchemeBuilder;
 
     @Autowired
-    public DaySchemeCreatingTask(DaySchemeService daySchemeService) {
+    public DaySchemeCreatingTask(DaySchemeService daySchemeService, DaySchemeBuilder daySchemeBuilder) {
         this.daySchemeService = daySchemeService;
+        this.daySchemeBuilder = daySchemeBuilder;
     }
 
     @Scheduled(cron = "0 0 1 * * *")
@@ -40,7 +42,7 @@ public class DaySchemeCreatingTask {
         IntStream.rangeClosed(1, howMany).forEach(i -> {
             LocalDate dateUnderProcessing = latestDaySchemeDate.plusDays(i);
 
-            DayScheme newDayScheme = DaySchemeFactory.createDefaultDayScheme(dateUnderProcessing);
+            DayScheme newDayScheme = daySchemeBuilder.setDate(dateUnderProcessing).build();
 
             daySchemeService.saveOrUpdate(newDayScheme);
         });
@@ -48,6 +50,7 @@ public class DaySchemeCreatingTask {
 
     private int calculateNumberOfDaySchemesToCreate(LocalDate latestDaySchemeDate) {
         int numberOfFutureDaySchemes = (int) ChronoUnit.DAYS.between(LocalDate.now(), latestDaySchemeDate);
+
         return NUMBER_OF_REQUIRED_FUTURE_SCHEMES - numberOfFutureDaySchemes;
     }
 

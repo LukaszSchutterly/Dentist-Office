@@ -3,7 +3,7 @@
         function ($uibModalInstance, dentalServicesService, visitsViewService, dateService) {
             var miCtrl = this;
             miCtrl.visit = {patient: {}};
-            getDentalServicesList();
+            miCtrl.dentalServices = dentalServicesService.dentalServicesList;
 
             miCtrl.ok = function () {
                 miCtrl.visit.visitDate = dateService.convertDateToValidRestString(visitsViewService.viewDate);
@@ -15,14 +15,6 @@
                 $uibModalInstance.dismiss();
             };
 
-            function getDentalServicesList() {
-
-                dentalServicesService.getDentalServicesList().then(function (data) {
-                    miCtrl.dentalServices = data;
-                }, function () {
-                    console.log("Failed to get dental services list")
-                });
-            }
         });
 
 })();

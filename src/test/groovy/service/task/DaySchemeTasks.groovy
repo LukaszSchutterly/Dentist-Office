@@ -2,7 +2,7 @@ package service.task
 
 import dentist.office.DentistOfficeApplication
 import dentist.office.model.entity.day.DayScheme
-import dentist.office.model.entity.day.DaySchemeFactory
+import dentist.office.model.entity.day.DaySchemeBuilder
 import dentist.office.service.entity.day.DaySchemeService
 import dentist.office.service.task.DaySchemeCreatingTask
 import dentist.office.service.task.DaySchemeDestroyingTask
@@ -41,7 +41,7 @@ class DaySchemeTasks extends Specification {
     def "running daySchemeDestroyingTask should remove old daySchemes in database"() {
         setup:
         LocalDate oldDate = LocalDate.of(1000, 01, 01)
-        DayScheme oldDayScheme = DaySchemeFactory.createDefaultDayScheme(oldDate)
+        DayScheme oldDayScheme = DaySchemeBuilder.createDefault(oldDate)
         daySchemeService.saveOrUpdate(oldDayScheme)
 
         assert daySchemeService.getById(oldDate)!=null

@@ -3,7 +3,6 @@ package dentist.office.controller.rest.visit;
 import dentist.office.model.entity.visit.Visit;
 import dentist.office.service.entity.visit.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,7 +45,7 @@ public class VisitController {
     }
 
     @GetMapping(value = "/byDate/{date}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Visit> getConfirmedVisitsByDate(@PathVariable @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate date) {
+    public List<Visit> getConfirmedVisitsByDate(@PathVariable LocalDate date) {
         return visitService.getVisitsByDateAndConfirmed(date, true);
     }
 

@@ -9,20 +9,29 @@
     <link href="/lib/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
     <link href="/lib/font-awesome-animation.css" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body ng-controller="mainController">
 <header>
-    <h1>Gabinet Stomatologiczny Nysa</h1>
+    <h2>Gabinet Stomatologiczny Nysa</h2>
 </header>
 <div class="container">
-    <div class="row">
-        <div class="col-md-2">
-            <div class="list-group">
-                <a href="/" class="list-group-item">Strona głowna</a>
-                <a href="#/registration" class="list-group-item">Rejestracja</a>
-                <a href="#/localization" class="list-group-item">Jak dojechać?</a>
-            </div>
+    <div class="row col-md-10 col-md-offset-1">
+        <div class="list-group text-center">
+            <a ng-class="{'active':path===''}" class="col-md-3 list-group-item" href="/">
+                <i class="fa fa-home fa-lg"></i> Strona główna
+            </a>
+            <a ng-class="{'active':path==='/services'}" class="col-md-3 list-group-item" href="#/services">
+                <i class="fa fa-bars fa-lg"></i> Usługi
+            </a>
+            <a ng-class="{'active':path==='/registration'}" class="col-md-3 list-group-item" href="#/registration">
+                <i class="fa fa-pencil fa-lg"></i> Rejestracja
+            </a>
+            <a ng-class="{'active':path==='/localization'}" class="col-md-3 list-group-item" href="#/localization">
+                <i class="fa fa-car fa-lg"></i> Jak dojechać?
+            </a>
         </div>
-        <div class="col-md-10" ng-view>
+    </div>
+    <div class="row col-md-10 col-md-offset-1">
+        <div ng-view>
 
         </div>
     </div>
@@ -39,6 +48,7 @@
 <script src="/modules/patient/registration/registrationService.js"></script>
 <script src="/modules/patient/registration/registrationRestService.js"></script>
 <script src="/modules/patient/localization/localization.js"></script>
+<script src="/modules/patient/services/servicesController.js"></script>
 <script src="/modules/shared/sharedServicesModule.js"></script>
 <script src="/modules/shared/dateService.js"></script>
 <script src="/modules/shared/dentalServicesService.js"></script>
